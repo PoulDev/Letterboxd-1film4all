@@ -1,5 +1,5 @@
 # Letterboxd-1film4all
-Find a film everyone agrees on by combining multiple users watchlist and watched films.
+Find a film everyone agrees on by combining multiple users watchlists and watched films.
 
 ## How this works
 The program takes a list of letterboxd usernames as input, it loads their watchlists and watched films,
@@ -11,7 +11,7 @@ watched by x users:
         ...film1...
         ...film2...
 
-So there are two orderings for the films: first by the number of users that watched the films, and the second one is by the number of users that want to watch the listed films.
+So the films are ordered by following two rules: first by the number of users that watched the films, and second by the number of users that want to watch the listed films.
 
 ## How to run:
 There are two versions of the program, one for the terminal and one for the web.
