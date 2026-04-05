@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
+from .headers import headers
+
 def parse_films(body):
     parse = BeautifulSoup(body, 'html.parser')
     posters = parse.find('div', class_='poster-grid')
@@ -16,6 +18,7 @@ def parse_films(body):
         if img is None: continue
 
         films[info['data-item-slug']] = {
+            'id': info['data-item-slug'],
             'name': info['data-item-name'],
             'link': info['data-item-link'],
             'details': info['data-details-endpoint'],
@@ -33,44 +36,12 @@ def parse_films(body):
 
 
 def _get_films_page(user, page=1):
-    body = requests.get(f'https://letterboxd.com/{user}/films/page/{page}', headers={
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:143.0) Gecko/20100101 Firefox/143.0",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Sec-GPC": "1",
-        "Connection": "keep-alive",
-        "Upgrade-Insecure-Requests": "1",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "none",
-        "Sec-Fetch-User": "?1",
-        "DNT": "1",
-        "Priority": "u=0, i",
-        "Pragma": "no-cache",
-        "Cache-Control": "no-cache",
-        "TE": "trailers"
-    })
+    body = requests.get(f'https://letterboxd.com/{user}/films/page/{page}', headers=headers)
     
     return parse_films(body.text)
 
 def _get_watchlist_page(user, page=1):
-    body = requests.get(f'https://letterboxd.com/{user}/watchlist/page/{page}', headers={
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:143.0) Gecko/20100101 Firefox/143.0",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Sec-GPC": "1",
-        "Connection": "keep-alive",
-        "Upgrade-Insecure-Requests": "1",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "none",
-        "Sec-Fetch-User": "?1",
-        "DNT": "1",
-        "Priority": "u=0, i",
-        "Pragma": "no-cache",
-        "Cache-Control": "no-cache",
-        "TE": "trailers"
-    })
+    body = requests.get(f'https://letterboxd.com/{user}/watchlist/page/{page}', headers=headers)
     
     return parse_films(body.text)
 
