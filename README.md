@@ -48,4 +48,4 @@ Then open your browser and go to `http://localhost:5000/`
 
 ---
 
-This program has been made by an human, no AI has been used ;3.
+This program has been made by a human, no AI has been used ;3.
