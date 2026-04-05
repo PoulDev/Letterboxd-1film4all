@@ -9,6 +9,7 @@ const options = {
 function addUser() {
     var username = document.getElementById("username").value;
     var userlist = document.getElementById("usernames");
+    document.getElementById("username").value = "";
 
     var div = document.createElement("div");
     div.className = "user";
@@ -20,8 +21,7 @@ function addUser() {
     remove.innerHTML = `<i class="fa fa-trash"></i>`;
     remove.className = "remove";
     remove.onclick = function() {
-        text.remove();
-        remove.remove();
+        div.remove();
         users.splice(users.indexOf(username), 1);
     }
 
@@ -67,14 +67,15 @@ function loadTierlist() {
     })
         .then(response => response.json())
         .then(data => {
-            var filmsElements = [];
             var tierlist = document.getElementById("tierlist");
             tierlist.innerHTML = "";
             for (var i = 0; i < data.length; i++) {
+                if (data[i].length == 0) continue;
                 var div = document.createElement("div");
                 div.className = "tier";
                 div.innerHTML = `<h2>Watched by ${i} users</h2>`;
                 for (var j = 0; j < data[i].length; j++) {
+                    if (data[i][j].length == 0) continue;
                     var div2 = document.createElement("div");
                     div2.className = "filmsRow";
 

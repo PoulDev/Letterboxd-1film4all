@@ -1,4 +1,5 @@
 import time
+import hashlib
 
 from flask import Flask, render_template, request
 
@@ -7,8 +8,26 @@ from letterbox.user import get_films, get_watchlist
 
 app = Flask(__name__)
 
-cache = {}
+cached_funcs = {}
 
+def cache(for_=60 * 10):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            id_ = hashlib.sha256(f'{func.__name__}{args}{kwargs}'.encode()).hexdigest()
+            if id_ in cached_funcs and (time.time() - cached_funcs[id_]["last_update"]) < for_:
+                return cached_funcs[id_]["out"]
+            
+            out = func(*args, **kwargs)
+            cached_funcs[id_] = {
+                "out": out,
+                "last_update": time.time(),
+            }
+            return out
+        return wrapper
+    return decorator
+
+get_films = cache()(get_films)
+get_watchlist = cache()(get_watchlist)
 
 @app.route("/")
 def index():
@@ -32,20 +51,10 @@ def letterbox_api():
     for name in names:
         users_films[name] = {}
 
-        if name in cache and (time.time() - cache[name]["last_update"]) < 60 * 10:
-            users_films[name]["watched"] = cache[name]["watched"]
-            users_films[name]["watchlist"] = cache[name]["watchlist"]
-        else:
-            print(f"[SCRAPE] Getting {name}'s watched films...")
-            users_films[name]["watched"] = get_films(name)
-            print(f"[SCRAPE] Getting {name}'s watchlist...")
-            users_films[name]["watchlist"] = get_watchlist(name)
-
-            cache[name] = {
-                "watched": users_films[name]["watched"],
-                "watchlist": users_films[name]["watchlist"],
-                "last_update": time.time(),
-            }
+        print(f"[SCRAPE] Getting {name}'s watched films...")
+        users_films[name]["watched"] = get_films(name)
+        print(f"[SCRAPE] Getting {name}'s watchlist...")
+        users_films[name]["watchlist"] = get_watchlist(name)
 
         watchlist.update(users_films[name]["watchlist"])
 
@@ -70,7 +79,9 @@ def film_proxy(name):
     return get_details(name)
 
 @app.route("/film/<name>/poster")
+@cache(60 * 60 * 24 * 30)
 def film_poster(name):
+    print('---- GETTING POSTER FOR', name, '----')
     return get_poster(name)
 
 if __name__ == "__main__":

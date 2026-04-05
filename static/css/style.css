@@ -40,13 +40,24 @@ div.user p {
     margin: 0;
 }
 
-button.remove {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem;
+button {
+    background: #EFEFEF;
+    color: #0E0E0E;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+
     border-radius: 0.5rem;
-    color: #EF1111;
     outline: none;
     border: none;
+}
+
+button#submit {
+    width: 12rem;
+}
+
+button.remove {
+    background: rgba(255, 255, 255, 0.1);
+    color: #EF1111;
 }
 
 div.film {
