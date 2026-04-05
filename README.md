@@ -6,10 +6,12 @@ The program takes a list of letterboxd usernames as input, it loads their watchl
 and it makes a tierlist of possible films to watch.
 
 The tierlist structure is the following:
+```
 watched by x users:
     y users want to watch those films:
         ...film1...
         ...film2...
+```
 
 So the films are ordered by two rules: first by the number of users that watched the films, and second by the number of users that want to watch the listed films.
 
