@@ -67,6 +67,12 @@ div.film p {
     padding: 0.5rem;
     margin: 0;
     width: 100%;
+    color: #EFEFEF;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
 }
 
 div.filmsRow {

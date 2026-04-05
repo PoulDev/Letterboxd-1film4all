@@ -82,6 +82,10 @@ function loadTierlist() {
                     title.innerHTML = `${users.length - j} users want to watch those films`;
 
                     for (var k = 0; k < data[i][j].length; k++) {
+                        var link = document.createElement("a");
+                        link.target = "_blank";
+                        link.href = `https://letterboxd.com/film/${data[i][j][k].id}`;
+
                         var film = document.createElement("div");
                         film.data = data[i][j][k];
                         film.className = "film";
@@ -91,7 +95,9 @@ function loadTierlist() {
 
                         film.appendChild(text);
 
-                        div2.appendChild(film);
+                        link.appendChild(film);
+                        div2.appendChild(link);
+
                         observer.observe(film);
                     }
                     div.appendChild(title);
