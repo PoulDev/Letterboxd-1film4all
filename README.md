@@ -1,4 +1,4 @@
-# Letterbox-1film4all
+# Letterboxd-1film4all
 Find a film everyone agrees on by combining multiple users watchlist and watched films.
 
 ## How this works
@@ -19,12 +19,12 @@ There are two versions of the program, one for the terminal and one for the web.
 **Setup:**
 ```bash
 # Clone the repository
-git clone https://github.com/PoulDev/Letterbox-1film4all.git
-cd Letterbox-1film4all
+git clone https://github.com/PoulDev/Letterboxd-1film4all.git
+cd Letterboxd-1film4all
 
 # Create the virtual environment
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 
 # Install the dependencies
 pip install -r requirements.txt
@@ -42,7 +42,9 @@ python main.py
 
 Then open your browser and go to `http://localhost:5000/`
 
-Please note that the web version is built for local usage only, i wouldn't recommend hosting it for public use. ( But if you whish to do that anyway you should implement some proxies, if you don't want to get your server's IP banned for dossing. )
+> [!NOTE] Hosting Note
+> The web version is built for local usage only, I wouldn't recommend hosting it for the public.
+> But if you whish to do that anyway you should implement some proxies, if you don't want to get your server's IP banned for dossing.
 
 ---
 
