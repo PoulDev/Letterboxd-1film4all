@@ -42,7 +42,7 @@ python main.py
 
 Then open your browser and go to `http://localhost:5000/`
 
-> [!NOTE] Hosting Note
+> \[!NOTE]
 > The web version is built for local usage only, I wouldn't recommend hosting it for the public.
 > But if you whish to do that anyway you should implement some proxies, if you don't want to get your server's IP banned for dossing.
 
